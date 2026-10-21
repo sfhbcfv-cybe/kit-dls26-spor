@@ -282,6 +282,25 @@ main{
     margin-bottom:7px;
 }
 
+.kit{position:relative;overflow:hidden}
+.favorite-star{
+    position:absolute;top:8px;left:8px;z-index:3;
+    width:36px;height:36px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.42);
+    background:rgba(20,20,20,.55);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;line-height:1;cursor:pointer;
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    box-shadow:0 4px 14px rgba(0,0,0,.2);transition:transform .2s,background .2s,color .2s;
+}
+.favorite-star:hover{transform:scale(1.08)}
+.favorite-star.is-favorite{color:#ffd84d;background:rgba(20,20,20,.78);border-color:rgba(255,216,77,.8)}
+#favoritesGrid .kit img{height:170px}
+.favorite-empty{grid-column:1/-1;text-align:center;padding:28px 12px;color:var(--muted)}
+.favorite-item{cursor:pointer;transition:transform .2s,border-color .2s}
+.favorite-item:hover{transform:translateY(-3px);border-color:rgba(255,208,0,.65)}
+.favorite-hint{font-size:11px;margin:0 0 8px;color:var(--muted)}
+
 .copy{
     border:0;
     width:100%;
@@ -836,154 +855,73 @@ body.dark-mode .search-scope-btn.active{background:rgba(255,255,255,.14);border-
 }
 
 
-/* المفضلة: نجمة فوق كل طقم أو لوجو */
-.kit{position:relative;overflow:hidden}
-.favorite-star{
- position:absolute;top:14px;right:14px;z-index:3;width:36px;height:36px;
- display:flex;align-items:center;justify-content:center;border-radius:50%;
- border:1px solid rgba(255,255,255,.55);background:rgba(25,25,25,.48);
- color:#fff;font-size:23px;line-height:1;cursor:pointer;
- backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
- box-shadow:0 3px 12px rgba(0,0,0,.18);transition:transform .22s ease,background .22s ease,color .22s ease;
+/* بطاقة صناعة بطاقتك - قريباً */
+.card-maker-coming{
+    position:relative;isolation:isolate;overflow:hidden;
+    display:flex;align-items:center;gap:12px;
+    margin:0 0 22px;padding:16px 14px;
+    min-height:88px;border-radius:22px;
+    border:1px solid rgba(255,208,0,.58);
+    background:linear-gradient(115deg,rgba(255,208,0,.18),rgba(229,57,53,.14),rgba(255,255,255,.08));
+    box-shadow:0 8px 28px rgba(229,57,53,.12),inset 0 1px 0 rgba(255,255,255,.22);
+    backdrop-filter:blur(22px) saturate(155%);-webkit-backdrop-filter:blur(22px) saturate(155%);
+    animation:cardMakerPulse 2.8s ease-in-out infinite;
 }
-.favorite-star:active{transform:scale(.86)}
-.favorite-star.is-favorite{color:#ffd43b;background:rgba(40,32,0,.72);border-color:rgba(255,212,59,.75)}
-.favorites-grid{margin-top:16px}
-.favorites-empty{grid-column:1/-1;text-align:center;padding:24px 12px;color:var(--muted)}
+.card-maker-icon{
+    flex:0 0 48px;width:48px;height:48px;border-radius:16px;
+    display:grid;place-items:center;font-size:27px;
+    background:linear-gradient(145deg,rgba(255,208,0,.28),rgba(229,57,53,.2));
+    border:1px solid rgba(255,255,255,.25);box-shadow:0 5px 16px rgba(0,0,0,.12)
+}
+.card-maker-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:6px}
+.card-maker-copy strong{font-size:16px;font-weight:900;letter-spacing:.1px}
+.card-maker-copy span{font-size:11px;line-height:1.5;color:var(--muted)}
+.coming-soon-badge{
+    flex-shrink:0;position:relative;z-index:2;padding:8px 12px;border-radius:999px;
+    color:#171000;font-size:12px;font-weight:900;letter-spacing:.2px;
+    background:linear-gradient(110deg,#fff3a1,#ffd000,#ffab00);
+    border:1px solid rgba(255,255,255,.72);
+    box-shadow:0 0 0 3px rgba(255,208,0,.12),0 0 18px rgba(255,208,0,.34);
+    animation:comingSoonFlash 1.8s ease-in-out infinite;
+}
+.card-maker-shine{position:absolute;z-index:-1;top:-60%;bottom:-60%;left:-35%;width:24%;transform:rotate(22deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent);animation:cardMakerShine 4s ease-in-out infinite;pointer-events:none}
+@keyframes cardMakerPulse{0%,100%{border-color:rgba(255,208,0,.4);box-shadow:0 8px 24px rgba(229,57,53,.09),inset 0 1px 0 rgba(255,255,255,.2)}50%{border-color:rgba(255,208,0,.9);box-shadow:0 9px 30px rgba(255,208,0,.2),0 0 18px rgba(229,57,53,.12),inset 0 1px 0 rgba(255,255,255,.3)}}
+@keyframes comingSoonFlash{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.06);filter:brightness(1.16)}}
+@keyframes cardMakerShine{0%,55%{left:-35%;opacity:0}65%{opacity:1}90%,100%{left:120%;opacity:0}}
+body.dark-mode .card-maker-coming{background:linear-gradient(115deg,rgba(255,208,0,.13),rgba(229,57,53,.12),rgba(255,255,255,.035));border-color:rgba(255,208,0,.45)}
+@media(prefers-reduced-motion:reduce){.card-maker-coming,.coming-soon-badge,.card-maker-shine{animation:none!important}}
 
 
+/* قسم الأخبار الزجاجي - إبراز واضح أعلى الصور */
+.news-section{position:relative;margin:18px 0 28px;padding:16px 13px 14px;border:1px solid rgba(255,208,0,.22);border-radius:25px;background:radial-gradient(ellipse at 100% 0%,rgba(255,208,0,.12),transparent 45%),radial-gradient(ellipse at 0% 100%,rgba(229,57,53,.12),transparent 42%),linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.018)),rgba(15,15,18,.35);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 15px 35px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.12);overflow:hidden}
+.news-section:before{content:"";position:absolute;top:0;left:16%;right:16%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,208,0,.85),rgba(255,255,255,.55),transparent);opacity:.9}
+.news-section .section-title{display:flex;align-items:center;gap:9px;margin:0 0 12px;padding:0 2px;font-weight:900;text-shadow:0 0 18px rgba(255,208,0,.17)}
+.news-heading-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;position:relative;z-index:1}
+.news-heading-row .section-title{margin:0}
+.news-more{display:inline-flex;align-items:center;justify-content:center;gap:7px;flex-shrink:0;padding:9px 13px;border:1px solid rgba(255,208,0,.52);border-radius:13px;color:#fff;font-size:12px;font-weight:900;background:linear-gradient(135deg,rgba(255,208,0,.2),rgba(255,255,255,.07));box-shadow:inset 0 1px 0 rgba(255,255,255,.17),0 5px 16px rgba(0,0,0,.18),0 0 14px rgba(255,208,0,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:pointer;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.news-more:hover{transform:translateY(-2px);border-color:rgba(255,208,0,.9);box-shadow:0 8px 22px rgba(0,0,0,.22),0 0 19px rgba(255,208,0,.16)}
+.news-item.news-hidden{display:none}
+.news-item.news-item-reveal{animation:newsReveal .42s cubic-bezier(.2,.75,.25,1) both}
+@media(max-width:380px){.news-more{padding:8px 9px;font-size:11px}}
+.news-intro{color:var(--muted);font-size:13px;line-height:1.7;margin:-4px 3px 14px}
+.news-list{display:grid;gap:11px}
+.news-item{position:relative;isolation:isolate;display:flex;align-items:center;min-height:94px;padding:15px 15px 15px 108px;gap:12px;text-align:right;border:1px solid rgba(255,255,255,.17);border-radius:19px;background:linear-gradient(115deg,rgba(255,255,255,.105),rgba(255,255,255,.025)),rgba(18,18,22,.62);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 9px 24px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.08);cursor:default;transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease;overflow:hidden;animation:newsReveal .55s ease both}
+.news-item:nth-child(2){animation-delay:.08s}.news-item:nth-child(3){animation-delay:.16s}
+.news-item:before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(180deg,#ffe878,var(--yellow),var(--red));box-shadow:0 0 14px rgba(255,208,0,.35);opacity:.95;z-index:-1}
+.news-item:after{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(ellipse at 0% 50%,rgba(255,208,0,.09),transparent 54%);opacity:.75;pointer-events:none}
+.news-item:hover{transform:translateY(-3px);border-color:rgba(255,208,0,.58);box-shadow:0 14px 30px rgba(0,0,0,.25),0 0 22px rgba(255,208,0,.09),inset 0 1px 0 rgba(255,255,255,.13)}
+.news-item:focus-visible,.news-source:focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
+.news-icon{width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.045));border:1px solid rgba(255,255,255,.17);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 5px 15px rgba(0,0,0,.12);font-size:23px}
+.news-copy{min-width:0;display:flex;flex-direction:column;gap:5px}
+.news-copy strong{font-size:15px;line-height:1.5;color:#fff;font-weight:900}
+.news-copy span{font-size:12px;color:#d0d0d0;line-height:1.65}
+.news-source{position:absolute;left:11px;top:50%;transform:translateY(-50%);border:1px solid rgba(255,255,255,.43);border-radius:12px;padding:10px 11px;color:#fff;font-size:12px;font-weight:900;white-space:nowrap;background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.065));box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 5px 15px rgba(0,0,0,.2),0 0 12px rgba(255,255,255,.035);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}
+.news-source:hover{background:linear-gradient(135deg,rgba(255,208,0,.28),rgba(229,57,53,.2));border-color:rgba(255,208,0,.78);box-shadow:0 0 17px rgba(255,208,0,.13)}
+@keyframes newsReveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+body.dark-mode .news-section{background:radial-gradient(ellipse at 100% 0%,rgba(255,208,0,.1),transparent 45%),radial-gradient(ellipse at 0% 100%,rgba(229,57,53,.1),transparent 42%),rgba(8,8,10,.48);border-color:rgba(255,208,0,.25)}
+@media(max-width:380px){.news-section{padding:13px 9px}.news-item{padding-right:9px;padding-left:87px;gap:8px;min-height:88px}.news-source{left:7px;padding:8px 7px;font-size:11px}.news-icon{width:37px;height:37px;flex-basis:37px;font-size:19px}.news-copy strong{font-size:13px}.news-copy span{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.news-item,.news-source{transition:none;animation:none!important}}
 
-/* خانة صنع بطاقة داخل صفحة دولابك */
-.card-maker-placeholder{
-    margin-top:16px;
-    min-height:100px;
-}
-.card-maker-placeholder h2{
-    margin-bottom:8px;
-    color:var(--text);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-}
-.card-maker-coming-soon{
-    display:inline-flex;
-    align-items:center;
-    padding:4px 11px;
-    border:1px solid rgba(255,190,70,.65);
-    border-radius:999px;
-    background:linear-gradient(135deg,rgba(255,190,70,.20),rgba(255,85,85,.16));
-    color:#ffbf47;
-    font-size:.68em;
-    font-weight:800;
-    letter-spacing:.3px;
-    box-shadow:0 0 12px rgba(255,170,45,.16);
-    animation:comingSoonGlow 2.4s ease-in-out infinite;
-    white-space:nowrap;
-}
-@keyframes comingSoonGlow{
-    0%,100%{box-shadow:0 0 8px rgba(255,170,45,.12);transform:translateY(0)}
-    50%{box-shadow:0 0 16px rgba(255,170,45,.30);transform:translateY(-1px)}
-}
-\n
-/* صندوق الأخبار والتحديثات في الرئيسية */
-.site-news{
-    position:relative;
-    overflow:hidden;
-    margin:0 0 18px;
-    padding:17px 17px 15px;
-    border:1px solid rgba(255,208,0,.25);
-    border-radius:22px;
-    background:linear-gradient(135deg,rgba(255,208,0,.09),rgba(255,255,255,.045) 48%,rgba(229,57,53,.09));
-    box-shadow:0 12px 30px rgba(0,0,0,.18);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-}
-.site-news::before{
-    content:"";position:absolute;top:0;right:0;width:4px;height:100%;
-    background:linear-gradient(180deg,var(--yellow),var(--red));
-}
-.site-news-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}
-.site-news-heading{display:flex;align-items:center;gap:10px;min-width:0}
-.site-news-more{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;border:1px solid rgba(255,208,0,.35);border-radius:999px;background:linear-gradient(135deg,rgba(255,208,0,.16),rgba(255,255,255,.06));color:var(--text);font:inherit;font-size:12px;font-weight:900;white-space:nowrap;cursor:pointer;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .22s ease,border-color .22s ease,background .22s ease}
-.site-news-more:hover{transform:translateY(-1px);border-color:rgba(255,208,0,.7);background:rgba(255,208,0,.18)}
-.site-news-more:active{transform:scale(.97)}
-.site-news-more-arrow{display:inline-block;font-size:14px;transition:transform .25s ease}
-.site-news-more[aria-expanded="true"] .site-news-more-arrow{transform:rotate(180deg)}
-.site-news-list{overflow:hidden;transition:max-height .45s cubic-bezier(.2,.75,.25,1)}
-.site-news-item{animation:newsItemEnter .38s cubic-bezier(.2,.75,.25,1) both}
-.site-news-item:nth-child(2){animation-delay:.04s}
-.site-news-item:nth-child(3){animation-delay:.08s}
-@keyframes newsItemEnter{
-  from{opacity:0;transform:translateY(10px) scale(.985);filter:blur(3px)}
-  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
-}
-.site-news-item:nth-child(n+4){display:none}
-.site-news-list.show-all .site-news-item:nth-child(n+4){display:flex;animation:newsReveal .42s cubic-bezier(.2,.75,.25,1) both}
-.site-news-list.show-all .site-news-item:nth-child(4){animation-delay:.03s}
-.site-news-list.show-all .site-news-item:nth-child(5){animation-delay:.08s}
-.site-news-list.show-all .site-news-item:nth-child(6){animation-delay:.13s}
-.site-news-list.show-all .site-news-item:nth-child(7){animation-delay:.18s}
-@keyframes newsReveal{
-  from{opacity:0;transform:translateY(-9px) scale(.985);filter:blur(4px)}
-  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
-}
-.site-news-more{position:relative;overflow:hidden}
-.site-news-more::after{content:"";position:absolute;inset:0;transform:translateX(-130%);background:linear-gradient(105deg,transparent,rgba(255,255,255,.22),transparent);pointer-events:none}
-.site-news-more:hover::after{animation:newsButtonShine .7s ease}
-@keyframes newsButtonShine{to{transform:translateX(130%)}}
-@media(prefers-reduced-motion:reduce){
-  .site-news-item,.site-news-list.show-all .site-news-item:nth-child(n+4){animation:none}
-  .site-news-more,.site-news-more-arrow{transition:none}
-}
-@media(max-width:420px){.site-news-heading{gap:7px}.site-news-title{gap:6px}.site-news-more{padding:7px 9px;font-size:11px}.site-news-icon{width:33px;height:33px}}
-
-.site-news-title{display:flex;align-items:center;gap:9px;font-size:21px;font-weight:900}
-.site-news-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:13px;background:rgba(255,208,0,.13);border:1px solid rgba(255,208,0,.24)}
-.site-news-label{font-size:11px;font-weight:800;letter-spacing:.2px;color:#ffe38a;border:1px solid rgba(255,208,0,.32);background:rgba(255,208,0,.08);padding:6px 9px;border-radius:999px;white-space:nowrap}
-.site-news-list{display:grid;gap:9px}
-.site-news-item{display:flex;align-items:flex-start;gap:10px;padding:10px 11px;border:1px solid rgba(255,255,255,.085);border-radius:14px;background:rgba(0,0,0,.15)}
-.site-news-content{flex:1;min-width:0;display:flex;flex-direction:column}
-.site-news-content .site-news-source{align-self:flex-end;margin:10px 0 0}
-.site-news-bullet{flex:0 0 8px;width:8px;height:8px;margin-top:6px;border-radius:50%;background:linear-gradient(135deg,var(--yellow),var(--red));box-shadow:0 0 10px rgba(255,208,0,.28)}
-.site-news-item strong{display:block;font-size:14px;margin-bottom:4px;color:var(--text)}
-.site-news-item p{font-size:17.5px;line-height:1.7;color:var(--muted)}
-.site-news-source{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  width:fit-content;
-  margin:10px 0 0;
-  padding:8px 15px;
-  border:1px solid rgba(255,255,255,.32);
-  border-radius:999px;
-  color:var(--text);
-  text-decoration:none;
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:.15px;
-  background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.07) 55%,rgba(255,208,0,.10));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.32),inset 0 -1px 0 rgba(255,255,255,.06),0 5px 16px rgba(0,0,0,.13);
-  backdrop-filter:blur(18px) saturate(145%);
-  -webkit-backdrop-filter:blur(18px) saturate(145%);
-  cursor:pointer;
-  transition:transform .24s ease,border-color .24s ease,background .24s ease,box-shadow .24s ease;
-}
-.site-news-source:hover{
-  transform:translateY(-2px);
-  border-color:rgba(255,208,0,.62);
-  background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,208,0,.14));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 8px 20px rgba(0,0,0,.18),0 0 13px rgba(255,208,0,.10);
-}
-.site-news-source:active{transform:translateY(0) scale(.97)}
-body.dark-mode .site-news-source{
-  border-color:rgba(255,255,255,.2);
-  background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.045) 60%,rgba(255,208,0,.08));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 5px 16px rgba(0,0,0,.25);
-}
-@media(max-width:600px){.site-news{padding:14px 13px}.site-news-title{font-size:19px}.site-news-label{font-size:10px}.site-news-item{padding:9px}}
-body.dark-mode .site-news-item{background:rgba(0,0,0,.22);border-color:rgba(255,255,255,.1)}
 
 </style>
 </head>
@@ -1019,48 +957,49 @@ body.dark-mode .site-news-item{background:rgba(0,0,0,.22);border-color:rgba(255,
 
     </div>
 
-    <!-- الأخبار والتحديثات -->
-    <section class="site-news" id="siteNews" aria-label="الأخبار والتحديثات">
-        <div class="site-news-head">
-            <div class="site-news-heading">
-                <h2 class="site-news-title"><span class="site-news-icon">📢</span> الأخبار</h2>
-                <button class="site-news-more" id="siteNewsMore" type="button" aria-expanded="false" aria-controls="siteNewsList">
-                    المزيد <span class="site-news-more-arrow" aria-hidden="true">▾</span>
-                </button>
-            </div>
-            <span class="site-news-label">آخر التحديثات</span>
+    <!-- أخبار الموقع وتحديثاته -->
+    <section class="news-section" aria-labelledby="newsTitle">
+        <div class="news-heading-row">
+            <h2 class="section-title" id="newsTitle">📰 الأخبار</h2>
+            <button class="news-more" id="newsMoreButton" type="button" aria-expanded="false" onclick="toggleMoreNews()">المزيد <span aria-hidden="true">⌄</span></button>
         </div>
-        <div class="site-news-list" id="siteNewsList">
-            <article class="site-news-item">
-                <span class="site-news-bullet"></span>
-                <div class="site-news-content"><strong>🎨 صنع بطاقة — قريباً</strong><p>ميزة جديدة قيد التجهيز لصنع البطاقات، ومكانها هيكون داخل صفحة «دولابك» من غير زر إضافي في الأخبار.</p><button class="site-news-source" type="button" onclick="navigateNewsSource('#cardMakerSection')" aria-label="الانتقال إلى مصدر الخبر">المصدر ↗</button></div>
+        <p class="news-intro">آخر الإضافات والتطويرات في دولابك لدريم.</p>
+        <div class="news-list">
+            <article class="news-item">
+                <span class="news-icon" aria-hidden="true">🪪</span>
+                <div class="news-copy">
+                    <strong>صناعة بطاقتك</strong>
+                    <span>إضافة جديدة داخل دولابك — قريباً</span>
+                </div>
+                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('dolabak')">المصدر ←</button>
             </article>
-            <article class="site-news-item">
-                <span class="site-news-bullet"></span>
-                <div class="site-news-content"><strong>⭐ تطوير المفضلة</strong><p>احفظ الأطقم واللوجوهات المفضلة عندك بالنجمة، وهتلاقيها مجمعة داخل صفحة «دولابك».</p><button class="site-news-source" type="button" onclick="navigateNewsSource('#favoritesList')" aria-label="الانتقال إلى مصدر الخبر">المصدر ↗</button></div>
+            <article class="news-item">
+                <span class="news-icon" aria-hidden="true">🔵🔴</span>
+                <div class="news-copy">
+                    <strong>إضافة طقم جديد لبرشلونة</strong>
+                    <span>شوف أطقم برشلونة داخل الدوري الإسباني</span>
+                </div>
+                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('barcelona')">المصدر ←</button>
             </article>
-            <article class="site-news-item">
-                <span class="site-news-bullet"></span>
-                <div class="site-news-content"><strong>🌍 تحديثات المنتخبات</strong><p>إضافة وتحديث أطقم المنتخبات بشكل مستمر لتوسيع المحتوى المتاح داخل الموقع.</p><button class="site-news-source" type="button" onclick="navigateNewsSource('#countries')" aria-label="الانتقال إلى مصدر الخبر">المصدر ↗</button></div>
+            <article class="news-item">
+                <span class="news-icon" aria-hidden="true">✨</span>
+                <div class="news-copy">
+                    <strong>تعديلات الموقع</strong>
+                    <span>تابع آخر التحسينات والإضافات على الموقع</span>
+                </div>
+                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('home')">المصدر ←</button>
             </article>
-            <article class="site-news-item">
-                <span class="site-news-bullet"></span>
-                <div class="site-news-content"><strong>🖼️ عارض الصور في الرئيسية</strong><p>عارضان للصور للتنقل بين أطقم الأندية والمنتخبات، مع إمكانية التبديل بالسحب والضغط على الصورة لفتح المحتوى المرتبط بها.</p><button class="site-news-source" type="button" onclick="navigateNewsSource('#home')" aria-label="الانتقال إلى مصدر الخبر">المصدر ↗</button></div>
-            </article>
-            <article class="site-news-item">
-                <span class="site-news-bullet"></span>
-                <div class="site-news-content"><strong>🔎 بحث عائم بتصميم زجاجي</strong><p>زر البحث موجود بجانب الشريط السفلي، ويفتح حقل البحث مع إمكانية الاختيار بين الدوريات والمنتخبات.</p><button class="site-news-source" type="button" onclick="navigateNewsSource('#home')" aria-label="الانتقال إلى مصدر الخبر">المصدر ↗</button></div>
-            </article>
-            <article class="site-news-item">
-                <span class="site-news-bullet"></span>
-                <div class="site-news-content"><strong>⬆️ زر الرجوع للأعلى</strong><p>زر دائري بمؤشر يوضح تقدم التمرير، لتسهيل الرجوع إلى أعلى الصفحة.</p><button class="site-news-source" type="button" onclick="navigateNewsSource('#home')" aria-label="الانتقال إلى مصدر الخبر">المصدر ↗</button></div>
-            </article>
-            <article class="site-news-item">
-                <span class="site-news-bullet"></span>
-                <div class="site-news-content"><strong>🪟 تحسين المظهر الزجاجي</strong><p>تأثيرات ضبابية وزجاجية للقوائم والأزرار، مع دعم المظهر الفاتح والداكن.</p><button class="site-news-source" type="button" onclick="navigateNewsSource('#featuredKits')" aria-label="الانتقال إلى الأطقم المميزة">المصدر ↗</button></div>
+            <article class="news-item news-hidden" data-news-extra="true">
+                <span class="news-icon" aria-hidden="true">🇦🇷</span>
+                <div class="news-copy">
+                    <strong>طقم منتخب الأرجنتين</strong>
+                    <span>شوف أطقم التانجو داخل قسم المنتخبات</span>
+                </div>
+                <button class="news-source" type="button" onclick="event.stopPropagation();openNewsSource('argentina')">المصدر ←</button>
             </article>
         </div>
     </section>
+
 
     <!-- عارض صور الدوريات والمنتخبات - إضافة فقط -->
     <div class="home-sliders">
@@ -1192,24 +1131,28 @@ body.dark-mode .site-news-item{background:rgba(0,0,0,.22);border-color:rgba(255,
 </section>
 
 
-<!-- صفحة دولابك - جاهزة للإضافات القادمة -->
-<section id="doulabak" class="page">
+<!-- صفحة دولابك -->
+<section id="dolabak" class="page">
     <div class="hero">
-        <h1>دولابك 👜</h1>
-        <p>مساحة جديدة في دولابك لدريم، جاهزة للإضافات القادمة.</p>
+        <h1>🧥 دولابك</h1>
+        <p>كل اللوجوهات والأطقم اللي حفظتها في مكان واحد ⭐</p>
     </div>
-    <div class="about-box" id="doulabakContent">
-        <h2>مفضلاتك ⭐</h2>
-        <p>كل طقم أو لوجو تضغط على نجمته هتلاقيه محفوظ هنا.</p>
-        <div class="kits favorites-grid" id="favoritesList"></div>
+    <div class="card-maker-coming" aria-label="صناعة بطاقتك قريباً">
+        <div class="card-maker-icon">🪪</div>
+        <div class="card-maker-copy">
+            <strong>صناعة بطاقتك</strong>
+            <span>صمّم بطاقتك الخاصة داخل دولابك</span>
+        </div>
+        <span class="coming-soon-badge">قريباً</span>
+        <span class="card-maker-shine" aria-hidden="true"></span>
     </div>
 
-    <!-- خانة صنع بطاقة - جاهزة لإضافة المحتوى لاحقًا -->
-    <div class="about-box card-maker-placeholder" id="cardMakerSection">
-        <h2>🎨 صنع بطاقة <span class="card-maker-coming-soon">قريباً</span></h2>
-        <div id="cardMakerContent"></div>
+    <h2 class="section-title">⭐ المفضلة</h2>
+    <div id="favoritesGrid" class="kits">
+        <div class="favorite-empty">لسه مفيش مفضلات — اضغط على النجمة فوق أي لوجو أو طقم علشان تحفظه هنا.</div>
     </div>
 </section>
+
 
 <!-- من نحن -->
 <section id="about" class="page">
@@ -1303,10 +1246,10 @@ body.dark-mode .site-news-item{background:rgba(0,0,0,.22);border-color:rgba(255,
 
     <button
         class="nav-btn"
-        data-page="doulabak">
+        data-page="dolabak">
 
         <span class="nav-icon">
-            👜
+            🧥
         </span>
 
         دولابك
@@ -1348,102 +1291,6 @@ body.dark-mode .site-news-item{background:rgba(0,0,0,.22);border-color:rgba(255,
 </button>
 
 <script>
-/* =====================================================
-   🔗 روابط مصادر الأخبار — عدّل الروابط من هنا بسهولة
-   ضع رابط المصدر بين علامتي الاقتباس لكل خبر.
-   مثال: nationalTeams: "https://example.com/news"
-   ===================================================== */
-const NEWS_SOURCE_LINKS = {
-  cardMaker: "#cardMakerSection", // مسار خانة صنع البطاقة داخل دولابك (بدون زر)
-  favorites: "#favoritesList",     // مسار المفضلة داخل دولابك (بدون زر)
-  nationalTeams: ""                // حط هنا رابط مصدر خبر المنتخبات (زر المصدر فقط)
-};
-
-function navigateNewsSource(target) {
-  if (!target) return;
-  const parts = target.split("#");
-  const destination = parts[1] || "";
-  if (!destination) return;
-
-  // Use the site's existing page navigation where possible.
-  const pageIds = ["home", "countries", "doulabak", "about"];
-  if (pageIds.includes(destination)) {
-    const navButton = document.querySelector('.nav-btn[data-page="' + destination + '"]');
-    if (navButton) navButton.click();
-    else {
-      document.querySelectorAll(".page").forEach(function(page) {
-        page.classList.toggle("active", page.id === destination);
-      });
-    }
-  }
-
-  const anchorId = destination === "doulabak" ? "" : destination;
-  const anchor = anchorId ? document.getElementById(anchorId) : null;
-  if (anchor) anchor.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  if (destination === "cardMakerSection" || destination === "favoritesList") {
-    const section = document.getElementById("doulabak");
-    const navButton = document.querySelector('.nav-btn[data-page="doulabak"]');
-    if (navButton) navButton.click();
-    window.setTimeout(function() {
-      const targetElement = document.getElementById(destination);
-      if (targetElement) targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 80);
-  }
-
-  // خبر تحسين المظهر الزجاجي يفتح صفحة «الأطقم المميزة» مباشرةً.
-  if (destination === "featuredKits") {
-    window.setTimeout(function() {
-      openLeague("stars");
-    }, 50);
-  }
-}
-
-const siteNewsMoreButton = document.getElementById("siteNewsMore");
-const siteNewsList = document.getElementById("siteNewsList");
-
-if (siteNewsMoreButton && siteNewsList) {
-  siteNewsMoreButton.addEventListener("click", function () {
-    const expanded = siteNewsMoreButton.getAttribute("aria-expanded") === "true";
-    siteNewsMoreButton.setAttribute("aria-expanded", String(!expanded));
-    if (expanded) {
-      siteNewsList.style.maxHeight = siteNewsList.scrollHeight + "px";
-      requestAnimationFrame(function () {
-        siteNewsList.classList.remove("show-all");
-        siteNewsList.style.maxHeight = siteNewsList.scrollHeight + "px";
-        requestAnimationFrame(function () {
-          siteNewsList.style.maxHeight = "";
-        });
-      });
-    } else {
-      siteNewsList.classList.add("show-all");
-      siteNewsList.style.maxHeight = "0px";
-      requestAnimationFrame(function () {
-        siteNewsList.style.maxHeight = siteNewsList.scrollHeight + "px";
-      });
-      siteNewsList.addEventListener("transitionend", function setNewsHeight() {
-        if (siteNewsMoreButton.getAttribute("aria-expanded") === "true") {
-          siteNewsList.style.maxHeight = "none";
-        }
-      }, { once: true });
-    }
-    siteNewsMoreButton.querySelector(".site-news-more-arrow").textContent = expanded ? "▾" : "▴";
-    siteNewsMoreButton.childNodes[0].textContent = expanded ? " المزيد " : " أقل ";
-  });
-}
-
-document.querySelectorAll("[data-news-source]").forEach(function(button){
-  button.addEventListener("click", function(event){
-    event.preventDefault();
-    const key = button.dataset.newsSource;
-    const sourceUrl = NEWS_SOURCE_LINKS[key];
-    if (sourceUrl && /^https?:\/\//i.test(sourceUrl)) {
-      window.open(sourceUrl, "_blank", "noopener,noreferrer");
-    } else {
-      alert("يا نجم ❤️ ضيف رابط مصدر الخبر في كود NEWS_SOURCE_LINKS فوق، جنب اسم الخبر.");
-    }
-  });
-});
 
 /*
 =========================================================
@@ -1806,6 +1653,15 @@ const leagues = [
 
     teams:[
 
+        {
+            name:"( Barcalona 1999 ) سيتم التنزيل يوم الخميس 22/10/2026 الساعة 8:00 مساءً",
+            logo:
+            "",
+            kits:[
+                
+           ] 
+        },
+        
         {
             name:"man united 2008",
 
@@ -2687,176 +2543,6 @@ const countries = [
 const $ = id => document.getElementById(id);
 
 let currentLeague = null;
-let currentFavoriteTeam = "";
-const FAVORITES_STORAGE_KEY = "doulabakDreamFavoritesV1";
-const FAVORITES_DB_NAME = "DoulabakDreamDatabase";
-const FAVORITES_DB_STORE = "savedData";
-let savedFavorites = loadFavorites();
-let favoritesLocalStorageAvailable = true;
-
-function loadFavorites(){
-    try {
-        const raw = localStorage.getItem(FAVORITES_STORAGE_KEY);
-        const value = JSON.parse(raw || "[]");
-        return Array.isArray(value)
-            ? value.filter(item => item && item.url && item.name)
-                .map(item => ({
-                    key: item.key || favoriteKey(item.name, item.url),
-                    name: String(item.name),
-                    url: String(item.url),
-                    team: String(item.team || "")
-                }))
-            : [];
-    } catch(e) {
-        favoritesLocalStorageAvailable = false;
-        return [];
-    }
-}
-
-function openFavoritesDB(){
-    return new Promise((resolve, reject) => {
-        if (!("indexedDB" in window)) {
-            reject(new Error("IndexedDB غير متاح"));
-            return;
-        }
-        const request = indexedDB.open(FAVORITES_DB_NAME, 1);
-        request.onupgradeneeded = () => {
-            const db = request.result;
-            if (!db.objectStoreNames.contains(FAVORITES_DB_STORE)) {
-                db.createObjectStore(FAVORITES_DB_STORE);
-            }
-        };
-        request.onsuccess = () => resolve(request.result);
-        request.onerror = () => reject(request.error || new Error("تعذر فتح قاعدة البيانات"));
-    });
-}
-
-async function saveFavoritesToDB(){
-    try {
-        const db = await openFavoritesDB();
-        await new Promise((resolve, reject) => {
-            const transaction = db.transaction(FAVORITES_DB_STORE, "readwrite");
-            transaction.objectStore(FAVORITES_DB_STORE).put(savedFavorites, FAVORITES_STORAGE_KEY);
-            transaction.oncomplete = resolve;
-            transaction.onerror = () => reject(transaction.error);
-            transaction.onabort = () => reject(transaction.error);
-        });
-        db.close();
-        return true;
-    } catch(e) {
-        return false;
-    }
-}
-
-async function restoreFavoritesFromDB(){
-    // لو localStorage فيه نسخة بالفعل، نعتبرها المصدر الأساسي ولا نستبدلها.
-    let hasLocalCopy = false;
-    try {
-        hasLocalCopy = localStorage.getItem(FAVORITES_STORAGE_KEY) !== null;
-    } catch(e) {}
-    if (hasLocalCopy) return;
-
-    try {
-        const db = await openFavoritesDB();
-        const stored = await new Promise((resolve, reject) => {
-            const transaction = db.transaction(FAVORITES_DB_STORE, "readonly");
-            const request = transaction.objectStore(FAVORITES_DB_STORE).get(FAVORITES_STORAGE_KEY);
-            request.onsuccess = () => resolve(request.result);
-            request.onerror = () => reject(request.error);
-        });
-        db.close();
-
-        if (Array.isArray(stored) && stored.length && savedFavorites.length === 0) {
-            savedFavorites = stored.filter(item => item && item.url && item.name)
-                .map(item => ({
-                    key: item.key || favoriteKey(item.name, item.url),
-                    name: String(item.name),
-                    url: String(item.url),
-                    team: String(item.team || "")
-                }));
-            try {
-                localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(savedFavorites));
-                favoritesLocalStorageAvailable = true;
-            } catch(e) {
-                favoritesLocalStorageAvailable = false;
-            }
-            renderFavorites();
-            refreshFavoriteStars();
-        }
-    } catch(e) {
-        // لو التخزينين غير متاحين، تظل المفضلة الحالية فعالة طول الجلسة.
-    }
-}
-
-function saveFavorites(){
-    let savedLocally = false;
-    try {
-        localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(savedFavorites));
-        favoritesLocalStorageAvailable = true;
-        savedLocally = true;
-    } catch(e) {
-        favoritesLocalStorageAvailable = false;
-    }
-
-    // نسخة احتياطية في IndexedDB للمساعدة لو localStorage غير متاح في المتصفح.
-    saveFavoritesToDB();
-
-    if (!savedLocally) {
-        console.warn("تعذر الحفظ في localStorage؛ جارٍ استخدام التخزين الاحتياطي إن كان متاحًا.");
-    }
-}
-
-function favoriteKey(name,url){ return String(url) + "::" + String(name); }
-
-function isFavorite(name,url){
-    const key = favoriteKey(name,url);
-    return savedFavorites.some(item => item.key === key);
-}
-
-function refreshFavoriteStars(){
-    document.querySelectorAll(".favorite-star").forEach(star => {
-        const active = savedFavorites.some(item => item.key === star.dataset.favoriteKey);
-        star.classList.toggle("is-favorite", active);
-        star.textContent = active ? "★" : "☆";
-        star.setAttribute("aria-label", active ? "إزالة من المفضلة" : "إضافة للمفضلة");
-        star.title = active ? "إزالة من المفضلة" : "إضافة للمفضلة";
-    });
-}
-
-function toggleFavorite(button,name,url,teamName){
-    const key = favoriteKey(name,url);
-    const found = savedFavorites.some(item => item.key === key);
-    if(found){
-        savedFavorites = savedFavorites.filter(item => item.key !== key);
-    } else {
-        savedFavorites.push({key,name,url,team:teamName || ""});
-    }
-    saveFavorites();
-
-    const active = !found;
-    if(button){
-        button.classList.toggle("is-favorite",active);
-        button.textContent = active ? "★" : "☆";
-        button.setAttribute("aria-label", active ? "إزالة من المفضلة" : "إضافة للمفضلة");
-        button.title = active ? "إزالة من المفضلة" : "إضافة للمفضلة";
-    }
-
-    renderFavorites();
-    refreshFavoriteStars();
-}
-
-function renderFavorites(){
-    const container = $("favoritesList");
-    if(!container) return;
-    if(!savedFavorites.length){
-        container.innerHTML = '<div class="favorites-empty">لسه مفيش مفضلات. اضغط على ☆ فوق أي طقم أو لوجو لإضافته هنا.</div>';
-        return;
-    }
-    container.innerHTML = savedFavorites.map(item => kitHTML(item.name,item.url,item.team || "",true)).join("");
-}
-
-// استرجاع النسخة الاحتياطية عند فتح الموقع من جديد.
-restoreFavoritesFromDB();
 
 
 /* إظهار صفحة مع دعم زر الرجوع في المتصفح وأندرويد */
@@ -2882,7 +2568,7 @@ function showPage(id, fromHistory = false){
         }
     }
 
-    if(id === "home" || id === "countries" || id === "doulabak" || id === "about"){
+    if(id === "home" || id === "countries" || id === "about"){
         setNav(id);
     } else {
         setNav("");
@@ -3101,7 +2787,6 @@ function openTeam(index){
 
     const team =
         currentLeague.teams[index];
-    currentFavoriteTeam = team.name;
 
 
     $("teamKits").innerHTML = `
@@ -3173,20 +2858,182 @@ function openTeam(index){
 }
 
 
+
+/* المفضلة: حفظ دائم مع نسخة احتياطية في IndexedDB */
+const FAVORITES_STORAGE_KEY = "dolabakFavorites";
+const FAVORITES_DB_NAME = "DolabakDreamDB";
+const FAVORITES_DB_STORE = "siteData";
+
+function getFavorites(){
+    try {
+        const stored = JSON.parse(localStorage.getItem(FAVORITES_STORAGE_KEY) || "[]");
+        return Array.isArray(stored) ? stored : [];
+    } catch(e){ return []; }
+}
+
+function openFavoritesDB(){
+    return new Promise((resolve, reject) => {
+        if (!window.indexedDB) { reject(new Error("IndexedDB غير متاح")); return; }
+        let request;
+        try { request = indexedDB.open(FAVORITES_DB_NAME, 1); }
+        catch(e) { reject(e); return; }
+        request.onupgradeneeded = () => {
+            const db = request.result;
+            if (!db.objectStoreNames.contains(FAVORITES_DB_STORE)) {
+                db.createObjectStore(FAVORITES_DB_STORE);
+            }
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error || new Error("تعذر فتح قاعدة المفضلة"));
+    });
+}
+
+function saveFavoritesToDB(items){
+    return openFavoritesDB().then(db => new Promise((resolve, reject) => {
+        let tx;
+        try {
+            tx = db.transaction(FAVORITES_DB_STORE, "readwrite");
+            tx.objectStore(FAVORITES_DB_STORE).put(items, FAVORITES_STORAGE_KEY);
+        } catch(e) { db.close(); reject(e); return; }
+        tx.oncomplete = () => { db.close(); resolve(true); };
+        tx.onerror = tx.onabort = () => { db.close(); reject(tx.error || new Error("تعذر حفظ المفضلة")); };
+    }));
+}
+
+function saveFavorites(items){
+    try { localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(items)); }
+    catch(e){ /* النسخة الاحتياطية قد تظل متاحة */ }
+    saveFavoritesToDB(items).catch(() => {
+        console.warn("التخزين الاحتياطي للمفضلة غير متاح في هذا المتصفح.");
+    });
+}
+
+async function restoreFavoritesFromDB(){
+    try {
+        // لا نستبدل بيانات محلية موجودة؛ نستخدم قاعدة البيانات فقط إذا كانت المفضلة المحلية فارغة.
+        if (getFavorites().length) return;
+        const db = await openFavoritesDB();
+        const stored = await new Promise((resolve, reject) => {
+            const tx = db.transaction(FAVORITES_DB_STORE, "readonly");
+            const request = tx.objectStore(FAVORITES_DB_STORE).get(FAVORITES_STORAGE_KEY);
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+        db.close();
+        if (Array.isArray(stored)) {
+            try { localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(stored)); } catch(e) {}
+            renderFavorites();
+        }
+    } catch(e) {
+        // بعض معاينات ملفات HTML تمنع التخزين؛ في هذه الحالة يظل التخزين المحلي هو الخيار الأول.
+    }
+}
+function isFavorite(name,url){
+    return getFavorites().some(item => item.url === url && item.name === name);
+}
+function toggleFavorite(name,url){
+    const items = getFavorites();
+    const index = items.findIndex(item => item.url === url && item.name === name);
+    if(index >= 0) items.splice(index,1);
+    else items.unshift({name,url});
+    saveFavorites(items);
+    // تحديث نجوم المعرض الحالي ثم قائمة المفضلة إن كانت مفتوحة
+    if($("teamKits") && $("teamKits").innerHTML) {
+        const active = document.getElementById("teamPage");
+        if(active && active.classList.contains("active")) {
+            const title = $("teamKits").querySelector(".team-head h3");
+            if(title && currentLeague && currentLeague.teams) {
+                const team = currentLeague.teams.find(t => t.name === title.textContent.trim());
+                if(team) openTeam(currentLeague.teams.indexOf(team));
+            }
+        }
+    }
+    const countryPage = document.getElementById("countries");
+    if(countryPage && countryPage.classList.contains("active")) {
+        const heading = $("countryKits")?.querySelector(".team-head h3");
+        if(heading) {
+            const found = countries.find(c => heading.textContent.includes(c.name));
+            if(found) openCountry(countries.indexOf(found));
+        }
+    }
+    renderFavorites();
+}
+function removeFavorite(name,url){
+    saveFavorites(getFavorites().filter(item => !(item.name === name && item.url === url)));
+    renderFavorites();
+}
+function renderFavorites(){
+    const grid = $("favoritesGrid");
+    if(!grid) return;
+    const items = getFavorites();
+    if(!items.length){
+        grid.innerHTML = '<div class="favorite-empty">لسه مفيش مفضلات — اضغط على النجمة فوق أي لوجو أو طقم علشان تحفظه هنا.</div>';
+        return;
+    }
+    grid.innerHTML = items.map(item => `
+        <div class="kit favorite-item" role="button" tabindex="0"
+             title="اضغط لفتح الطقم أو اللوجو الأصلي"
+             onclick="openFavorite('${escapeAttr(item.name)}','${escapeAttr(item.url)}')"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openFavorite('${escapeAttr(item.name)}','${escapeAttr(item.url)}')}">
+            <button class="favorite-star is-favorite" title="إزالة من المفضلة" aria-label="إزالة من المفضلة" onclick="event.stopPropagation();removeFavorite('${escapeAttr(item.name)}','${escapeAttr(item.url)}')">★</button>
+            <img src="${item.url}" alt="${item.name}" loading="lazy" onerror="this.style.opacity='.35'">
+            <div class="kit-name">${item.name}</div>
+            <div class="small favorite-hint">اضغط لعرض مكانه الأصلي</div>
+            <button class="copy" onclick="event.stopPropagation();copyLink(this,'${escapeAttr(item.url)}')">نسخ اللينك</button>
+        </div>
+    `).join("");
+}
+
+/* فتح العنصر المحفوظ في مكانه الأصلي داخل الموقع */
+function openFavorite(name,url){
+    // البحث في أطقم الأندية والدوريات
+    for(const league of leagues){
+        const index = (league.teams || []).findIndex(team =>
+            (team.logo === url && name === "اللوجو") ||
+            (team.kits || []).some(kit => kit[1] === url && kit[0] === name)
+        );
+        if(index >= 0){
+            currentLeague = league;
+            openTeam(index);
+            setNav("");
+            window.scrollTo({top:0,behavior:"smooth"});
+            return;
+        }
+    }
+    // البحث في المنتخبات
+    const countryIndex = countries.findIndex(country =>
+        (country.logo === url && name === "اللوجو") ||
+        (country.kits || []).some(kit => kit[1] === url && kit[0] === name)
+    );
+    if(countryIndex >= 0){
+        showPage("countries");
+        setNav("countries");
+        renderCountries($("search") ? $("search").value : "");
+        openCountry(countryIndex);
+        window.scrollTo({top:0,behavior:"smooth"});
+        return;
+    }
+    // لو العنصر محفوظ من إصدار أقدم أو لم يعد موجوداً ضمن القوائم
+    const saved = getFavorites().find(item => item.name === name && item.url === url);
+    if(saved){
+        const preview = window.open(url,"_blank","noopener");
+        if(!preview) location.href = url;
+    }
+}
+
+
 /* إنشاء كارت الطقم */
 
-function kitHTML(name,url,teamName=currentFavoriteTeam,fromFavorites=false){
-    const active = isFavorite(name,url);
+function kitHTML(name,url){
+    const favorite = isFavorite(name,url);
     return `
         <div class="kit">
-            <button type="button" class="favorite-star ${active ? "is-favorite" : ""}"
-                data-favorite-key="${escapeAttr(favoriteKey(name,url))}"
-                aria-label="${active ? "إزالة من المفضلة" : "إضافة للمفضلة"}"
-                title="${active ? "إزالة من المفضلة" : "إضافة للمفضلة"}"
-                onclick="toggleFavorite(this,'${escapeAttr(name)}','${escapeAttr(url)}','${escapeAttr(teamName || "")}')">${active ? "★" : "☆"}</button>
+            <button class="favorite-star ${favorite ? "is-favorite" : ""}"
+                aria-label="${favorite ? "إزالة من المفضلة" : "إضافة للمفضلة"}"
+                title="${favorite ? "إزالة من المفضلة" : "إضافة للمفضلة"}"
+                onclick="toggleFavorite('${escapeAttr(name)}','${escapeAttr(url)}')">${favorite ? "★" : "☆"}</button>
             <img src="${url}" alt="${name}" loading="lazy">
             <div class="kit-name">${name}</div>
-            ${teamName ? `<div class="small-note" style="font-size:11px;margin-bottom:7px">${teamName}</div>` : ""}
             <button class="copy" onclick="copyLink(this,'${escapeAttr(url)}')">نسخ اللينك</button>
         </div>
     `;
@@ -3343,13 +3190,65 @@ function renderCountries(filter=""){
 }
 
 
+/* إظهار الأخبار الإضافية بحركة ناعمة */
+function toggleMoreNews(){
+    const extras = Array.from(document.querySelectorAll('[data-news-extra="true"]'));
+    const button = document.getElementById('newsMoreButton');
+    if(!button || !extras.length) return;
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+    if(isExpanded){
+        extras.forEach(item => item.classList.add('news-hidden'));
+        button.setAttribute('aria-expanded','false');
+        button.innerHTML = 'المزيد <span aria-hidden="true">⌄</span>';
+    } else {
+        extras.forEach((item,index) => {
+            item.classList.remove('news-hidden');
+            item.classList.remove('news-item-reveal');
+            void item.offsetWidth;
+            item.classList.add('news-item-reveal');
+            item.style.animationDelay = (index * 75) + 'ms';
+        });
+        button.setAttribute('aria-expanded','true');
+        button.innerHTML = 'عرض أقل <span aria-hidden="true">⌃</span>';
+    }
+}
+
+/* وجهات أزرار مصدر الأخبار */
+function openNewsSource(destination){
+    if(destination === "dolabak"){
+        showPage("dolabak");
+        setNav("dolabak");
+        renderFavorites();
+        return;
+    }
+    if(destination === "barcelona"){
+        // افتح الدوري الإسباني ثم اعرض برشلونة وأطقم الفريق مباشرة.
+        openLeague("spanish");
+        const spanishLeague = leagues.find(league => league.id === "spanish");
+        if(!spanishLeague) return;
+        const barcelonaIndex = spanishLeague.teams.findIndex(team => team.name.trim().toLowerCase() === "barcelona");
+        if(barcelonaIndex >= 0) openTeam(barcelonaIndex);
+        return;
+    }
+    if(destination === "argentina"){
+        const argentinaIndex = countries.findIndex(country => country.name.trim().toLowerCase() === "argentina");
+        if(argentinaIndex < 0) return;
+        showPage("countries");
+        setNav("countries");
+        renderCountries("");
+        openCountry(argentinaIndex);
+        return;
+    }
+    goHome();
+}
+
+
 /* فتح المنتخب */
 
 function openCountry(index){
 
     const c =
         countries[index];
-    currentFavoriteTeam = c.name;
 
 
     $("countryKits").innerHTML = `
@@ -3474,10 +3373,17 @@ document
                 }
 
 
-                else if(page === "doulabak"){
+                else if(page === "dolabak"){
+
+                    showPage(
+                        "dolabak"
+                    );
+
+                    setNav(
+                        "dolabak"
+                    );
                     renderFavorites();
-                    showPage("doulabak");
-                    setNav("doulabak");
+
                 }
 
 
@@ -3859,8 +3765,10 @@ initHomeSlider("countriesSlider");
 /* تشغيل الموقع */
 
 renderLeagues();
+
 renderCountries();
 renderFavorites();
+restoreFavoritesFromDB();
 
 
 
